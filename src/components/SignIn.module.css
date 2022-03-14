@@ -1,0 +1,15 @@
+.signinformular {
+    display: flex;
+    flex-direction: column;
+    width: 312px;
+    gap: 30px;
+}
+
+.formularWrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+}

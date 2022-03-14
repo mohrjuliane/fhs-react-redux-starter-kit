@@ -1,0 +1,14 @@
+.transactionForm {
+    display: flex;
+    flex-direction: row;
+    height: 120px;
+    gap: 20px;
+}
+
+.buttonWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-end;
+    width: 312px;
+}
