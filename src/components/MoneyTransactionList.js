@@ -3,7 +3,7 @@ import { TableRow } from './TableRow'
 const data = require('../db.json')
 
 export const MoneyTransactionList = () => {
-  // wir sind Sepp??
+  // pretending to be Sepp (id: 1)
   return (
     <>
       {data['money-transaction'].map((element) => {
