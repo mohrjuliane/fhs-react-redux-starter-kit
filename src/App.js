@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { SignIn } from './components/SignIn'
 import { SignUp } from './components/SignUp'
 import { MoneyTransactionList } from './components/MoneyTransactionList'
+import { MoneyTransactionCreate } from './components/MoneyTransactionCreate'
 
 function App () {
   const [user, setUser] = useState({ email: '', password: '' })
@@ -25,7 +26,11 @@ function App () {
           path="/sign-up"
           element={<SignUp user={user} onUpdateUser={handleUserChange} />}
         />
-        <Route path="/money-transactions" element={<MoneyTransactionList />} />
+        <Route path="/money-transactions" element={
+        <>
+          <MoneyTransactionCreate />
+          <MoneyTransactionList />
+        </>} />
       </Routes>
     </Router>
   )

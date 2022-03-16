@@ -12,18 +12,6 @@ const userSchema = object({
 })
 
 export const SignIn = ({ user, onUpdateUser }) => {
-  // const [email, setEmail] = useState("")
-  // const [password, setPassword] = useState("")
-  // const [formEmail, setFormEmail] = useState("")
-  // const [formPassword, setFormPassword] = useState("")
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setEmail(formEmail);
-  //   setPassword(formPassword);
-  //   alert("email: " + email + ", password: " + password);
-  // };
-
   const formik = useFormik({
     initialValues: user,
     validationSchema: userSchema,
