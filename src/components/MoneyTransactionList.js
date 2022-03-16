@@ -27,15 +27,20 @@ export const MoneyTransactionList = () => {
       amount: 90.0,
       isPaid: false
     }
-
   ]
   return (
-        <>
-            {moneyTransactions.map((element) => {
-              return (
-                    <TableRow key={element.user.id} userName={element.user.name} id={element.user.id} isPaid={element.isPaid} amount={element.amount}/>
-              )
-            })}
-        </>
+    <>
+      {moneyTransactions.map((element) => {
+        return (
+          <TableRow
+            key={element.user.id}
+            userName={element.user.name}
+            id={element.user.id}
+            isPaid={element.isPaid}
+            amount={element.amount}
+          />
+        )
+      })}
+    </>
   )
 }
