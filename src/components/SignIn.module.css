@@ -1,15 +1,40 @@
 .signinformular {
-    display: flex;
-    flex-direction: column;
-    width: 312px;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 312px;
+  gap: 30px;
 }
 
 .formularWrapper {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 500px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+.linkText {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+
+.errorMessage {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  color: rgb(242, 137, 137);
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 0;
 }
