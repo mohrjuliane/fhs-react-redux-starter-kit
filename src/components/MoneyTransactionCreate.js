@@ -4,26 +4,38 @@ import { Button } from './Button'
 import styles from './MoneyTransactionCreate.module.css'
 import { DecimalInput } from './DecimalInput'
 import { useFormik } from 'formik'
-const data = require('../db.json')
 
-export const MoneyTransactionCreate = () => {
+export const MoneyTransactionCreate = ({ users, setMoneyTransactions }) => {
   const [isCreditor, setCreditor] = useState(false) // default: I owe somebody
 
   const formik = useFormik({
-    initialValues: data.user[0],
+    initialValues: users[0],
     onSubmit: (values) => {
       // pretending to be Sepp (id: 1)
-      isCreditor
-        ? console.log({
-          creditorId: 1,
-          debitorId: parseInt(values.user),
-          amount: values.amount
-        })
-        : console.log({
-          creditorId: parseInt(values.user),
-          debitorId: 1,
-          amount: values.amount
-        })
+      const newTransaction = isCreditor
+        ? ({
+            creditorId: 1,
+            debitorId: parseInt(values.user),
+            amount: values.amount,
+            paidAt: null
+          })
+        : ({
+            creditorId: parseInt(values.user),
+            debitorId: 1,
+            amount: values.amount,
+            paidAt: null
+          })
+      fetch('http://localhost:3001/money-transaction', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newTransaction)
+      })
+        .then(res => res.json())
+        .then(json => console.log(json))
+
+      fetch('http://localhost:3001/money-transaction')
+        .then((response) => response.json())
+        .then((json) => setMoneyTransactions(json))
     }
   })
 
@@ -60,7 +72,7 @@ export const MoneyTransactionCreate = () => {
         <div className={styles.buttonWrapper}>
           <SelectInputField
             name={'user'}
-            options={data.user.filter(element => element.id !== 1) /* pretending to be Sepp (id: 1) */}
+            options={users.filter(element => element.id !== 1) /* pretending to be Sepp (id: 1) */}
             onChange={formik.handleChange}
             value={formik.values.user}
           />

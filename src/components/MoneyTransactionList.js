@@ -1,19 +1,18 @@
 import React from 'react'
 import { TableRow } from './TableRow'
-const data = require('../db.json')
 
-export const MoneyTransactionList = () => {
+export const MoneyTransactionList = ({ moneyTransactions, users }) => {
   // pretending to be Sepp (id: 1)
   return (
     <>
-      {data['money-transaction'].map((element) => {
+      {moneyTransactions.map((element) => {
         return (
           <TableRow
             key={element.id}
             userName={
               element.creditorId !== 1
-                ? data.user.find((x) => x.id === element.creditorId).name
-                : data.user.find((x) => x.id === element.debitorId).name
+                ? `I owe ${users.find((x) => x.id === element.creditorId).name}`
+                : `${users.find((x) => x.id === element.debitorId).name} owes me`
             }
             id={element.id}
             isPaid={element.paidAt != null}
