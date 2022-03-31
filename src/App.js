@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Navigation } from './components/Navigation'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { SignIn } from './components/SignIn'
 import { SignUp } from './components/SignUp'
-import { MoneyTransactionList } from './components/MoneyTransactionList'
-import { MoneyTransactionCreate } from './components/MoneyTransactionCreate'
+import { MoneyTransactionPage } from './components/MoneyTransactionPage'
 
 function App () {
   const [user, setUser] = useState({ email: '', password: '' })
-  const [moneyTransactions, setMoneyTransactions] = useState([])
-  const [users, setUsers] = useState([])
-
-  useEffect(() => {
-    fetch('http://localhost:3001/money-transaction')
-      .then((response) => response.json())
-      .then((json) => setMoneyTransactions(json))
-    fetch('http://localhost:3001/user')
-      .then((response) => response.json())
-      .then((json) => setUsers(json))
-  }, [])
 
   function handleUserChange ({ email, password }) {
     setUser({ email: email, password: password })
@@ -39,8 +27,7 @@ function App () {
         />
         <Route path="/money-transactions" element={
         <>
-          <MoneyTransactionCreate users={users} setMoneyTransactions={setMoneyTransactions}/>
-          <MoneyTransactionList moneyTransactions={moneyTransactions} users={users}/>
+          <MoneyTransactionPage />
         </>} />
       </Routes>
     </Router>
