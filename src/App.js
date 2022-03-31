@@ -25,10 +25,10 @@ function App () {
           path="/sign-up"
           element={<SignUp user={user} onUpdateUser={handleUserChange} />}
         />
-        <Route path="/money-transactions" element={
-        <>
-          <MoneyTransactionPage />
-        </>} />
+        <Route
+          path="/money-transactions"
+          element={<MoneyTransactionPage/>}
+        />
       </Routes>
     </Router>
   )

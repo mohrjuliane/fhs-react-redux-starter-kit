@@ -27,6 +27,20 @@
       "amount": 3,
       "paidAt": null,
       "id": 4
+    },
+    {
+      "creditorId": 3,
+      "debitorId": 1,
+      "amount": 12,
+      "paidAt": null,
+      "id": 5
+    },
+    {
+      "creditorId": 3,
+      "debitorId": 1,
+      "amount": 12,
+      "paidAt": null,
+      "id": 6
     }
   ],
   "user": [
