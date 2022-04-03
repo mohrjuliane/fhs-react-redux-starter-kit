@@ -1,11 +1,11 @@
 import React from 'react'
-import { TableRow } from './TableRow'
+import { TableRow } from '../TableRow/TableRow'
 
 export const MoneyTransactionList = ({ moneyTransactions, users }) => {
   // pretending to be Sepp (id: 1)
   return (
     <>
-      {moneyTransactions.map((element) => {
+      {users !== undefined && moneyTransactions.map((element) => {
         return (
           <TableRow
             key={element.id}

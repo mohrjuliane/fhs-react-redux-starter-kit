@@ -14,10 +14,10 @@ export const SelectInputField = ({ name, options, onChange, value }) => {
         value={value}
         defaultValue={'Select'}
       >
-        <option value="Select" disabled={true}>
+        <option value="Select" disabled={true} key={0}>
           Select
         </option>
-        {options &&
+        {options !== undefined &&
           options.map((option) => {
             return (
               <option key={option.id} value={option.id}>

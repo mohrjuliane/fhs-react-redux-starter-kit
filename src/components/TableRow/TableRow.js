@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from './TableRow.module.css'
-import { Button } from './Button'
+import { Button } from '../Button/Button'
 
 export const TableRow = ({ userName, isPaid, id, amount }) => {
   const [paidState, setPaid] = useState(isPaid)
