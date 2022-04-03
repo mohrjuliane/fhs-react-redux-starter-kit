@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button } from './Button'
-import { InputField } from './InputField'
+import { Button } from '../Button/Button'
+import { InputField } from '../InputField/InputField'
 import styles from './SignIn.module.css'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'

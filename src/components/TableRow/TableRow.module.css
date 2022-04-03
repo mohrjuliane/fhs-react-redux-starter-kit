@@ -13,6 +13,7 @@
 .lableText {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     margin-right: 40px;
+    min-width: 40px;
 }
 
 

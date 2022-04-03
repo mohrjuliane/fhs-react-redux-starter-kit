@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { Navigation } from './components/Navigation'
+import { Navigation } from './components/Navigation/Navigation'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { SignIn } from './components/SignIn'
-import { SignUp } from './components/SignUp'
-import { MoneyTransactionList } from './components/MoneyTransactionList'
-import { MoneyTransactionCreate } from './components/MoneyTransactionCreate'
+import { SignIn } from './components/SignIn/SignIn'
+import { SignUp } from './components/SignUp/SignUp'
+import { MoneyTransactionPage } from './components/MoneyTransactionPage/MoneyTransactionPage'
 
 function App () {
   const [user, setUser] = useState({ email: '', password: '' })
@@ -26,11 +25,7 @@ function App () {
           path="/sign-up"
           element={<SignUp user={user} onUpdateUser={handleUserChange} />}
         />
-        <Route path="/money-transactions" element={
-        <>
-          <MoneyTransactionCreate />
-          <MoneyTransactionList />
-        </>} />
+        <Route path="/money-transactions" element={<MoneyTransactionPage />} />
       </Routes>
     </Router>
   )

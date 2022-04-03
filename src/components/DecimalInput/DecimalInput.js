@@ -10,7 +10,7 @@ export const DecimalInput = ({ name, onChange, value }) => {
         type={'number'}
         id={name}
         min="0.00"
-        step="0.001"
+        step="0.1"
         className={styles.decimalField}
         onChange={onChange}
         value={value}

@@ -1,29 +1,20 @@
 import React, { useState } from 'react'
-import { SelectInputField } from './SelectInputField'
-import { Button } from './Button'
+import { SelectInputField } from '../SelectInputField/SelectInputField'
+import { Button } from '../Button/Button'
 import styles from './MoneyTransactionCreate.module.css'
-import { DecimalInput } from './DecimalInput'
+import { DecimalInput } from '../DecimalInput/DecimalInput'
 import { useFormik } from 'formik'
-const data = require('../db.json')
 
-export const MoneyTransactionCreate = () => {
+export const MoneyTransactionCreate = ({ users, handleSubmit }) => {
   const [isCreditor, setCreditor] = useState(false) // default: I owe somebody
 
   const formik = useFormik({
-    initialValues: data.user[0],
+    initialValues: users[0],
     onSubmit: (values) => {
       // pretending to be Sepp (id: 1)
-      isCreditor
-        ? console.log({
-          creditorId: 1,
-          debitorId: parseInt(values.user),
-          amount: values.amount
-        })
-        : console.log({
-          creditorId: parseInt(values.user),
-          debitorId: 1,
-          amount: values.amount
-        })
+      const creditor = isCreditor ? 1 : parseInt(values.user)
+      const debitor = isCreditor ? parseInt(values.user) : 1
+      handleSubmit(creditor, debitor, values.amount)
     }
   })
 
@@ -60,7 +51,7 @@ export const MoneyTransactionCreate = () => {
         <div className={styles.buttonWrapper}>
           <SelectInputField
             name={'user'}
-            options={data.user.filter(element => element.id !== 1) /* pretending to be Sepp (id: 1) */}
+            options={users.filter(element => element.id !== 1)/* pretending to be Sepp (id: 1) */}
             onChange={formik.handleChange}
             value={formik.values.user}
           />
