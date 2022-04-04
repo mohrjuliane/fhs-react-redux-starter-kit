@@ -40,6 +40,7 @@ export const MoneyTransactionPage = () => {
       }
     const docRef = await addDoc(collection(db, 'transactions'), newTransaction)
     console.log('Document written with ID: ', docRef.id)
+    getTransactions()
   }
 
   return (
