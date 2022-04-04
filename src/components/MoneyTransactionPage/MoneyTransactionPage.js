@@ -39,11 +39,6 @@ export const MoneyTransactionPage = () => {
     updateTransactionsState()
   }
 
-  /* Code von Thomas Mayrhofer
-  const addMoneyTransaction = useCallback((moneyTransaction) => {
-    setMoneyTransaction([...moneyTransactions, moneyTransaction])
-  },[moneyTransactions,setMoneyTransactions]) */
-
   async function updateDocument (transactionId, time) {
     const documentRef = doc(db, 'transactions', transactionId)
     await updateDoc(documentRef, {
