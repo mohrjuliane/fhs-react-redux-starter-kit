@@ -11,9 +11,8 @@ export const MoneyTransactionCreate = ({ users, handleSubmit, ownId }) => {
   const formik = useFormik({
     initialValues: users[0],
     onSubmit: (values) => {
-      // pretending to be Sepp (id: 1)
-      const creditor = isCreditor ? ownId : parseInt(values.user)
-      const debitor = isCreditor ? parseInt(values.user) : ownId
+      const creditor = isCreditor ? ownId : values.user
+      const debitor = isCreditor ? values.user : ownId
       handleSubmit(creditor, debitor, values.amount)
     }
   })

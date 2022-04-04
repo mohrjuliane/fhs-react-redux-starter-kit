@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MoneyTransactionCreate } from '../MoneyTransactionCreate/MoneyTransactionCreate'
 import { MoneyTransactionList } from '../MoneyTransactionList/MoneyTransactionList'
 import { db } from '../../firebase-config'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, addDoc } from 'firebase/firestore'
 
 export const MoneyTransactionPage = () => {
   const [moneyTransactions, setMoneyTransactions] = useState([])
@@ -30,19 +30,21 @@ export const MoneyTransactionPage = () => {
     setMoneyTransactions(parsedData)
   }
 
-  function handleSubmit (creditor, debitor, amount) {
-    /* const newTransaction =
-            ({
-              creditorId: creditor,
-              debitorId: debitor,
-              amount: amount,
-              paidAt: null
-            }) */
+  async function handleSubmit (creditor, debitor, amount) {
+    const newTransaction =
+      {
+        creditorId: creditor,
+        debitorId: debitor,
+        amount: amount,
+        paidAt: null
+      }
+    const docRef = await addDoc(collection(db, 'transactions'), newTransaction)
+    console.log('Document written with ID: ', docRef.id)
   }
 
   return (
         <>
-            <MoneyTransactionCreate users={users} handleSubmit={handleSubmit} ownId={ownId}/>
+            <MoneyTransactionCreate users={users} handleSubmit={handleSubmit} ownId={ownId} />
             <MoneyTransactionList moneyTransactions={moneyTransactions} users={users} ownId={ownId}/>
         </>
   )

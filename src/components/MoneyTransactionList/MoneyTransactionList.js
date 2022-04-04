@@ -15,7 +15,7 @@ export const MoneyTransactionList = ({ moneyTransactions, users, ownId }) => {
                 : `${users.find((x) => x.id === element.debitorId).name} owes me`
             }
             id={element.id}
-            isPaid={element.paidAt !== ''}
+            isPaid={element.paidAt !== null}
             amount={element.amount}
           />
         )
