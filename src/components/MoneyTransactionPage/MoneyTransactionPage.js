@@ -7,7 +7,7 @@ import { collection, getDocs } from 'firebase/firestore'
 export const MoneyTransactionPage = () => {
   const [moneyTransactions, setMoneyTransactions] = useState([])
   const [users, setUsers] = useState([{}])
-  // const [ownId] = useState('7ksRNdhVDN8McZVloTEc')
+  const [ownId] = useState('7ksRNdhVDN8McZVloTEc')
   const userCollectionRef = collection(db, 'users')
   const transactionCollectionRef = collection(db, 'transactions')
 
@@ -42,8 +42,8 @@ export const MoneyTransactionPage = () => {
 
   return (
         <>
-            <MoneyTransactionCreate users={users} handleSubmit={handleSubmit}/>
-            <MoneyTransactionList moneyTransactions={moneyTransactions} users={users}/>
+            <MoneyTransactionCreate users={users} handleSubmit={handleSubmit} ownId={ownId}/>
+            <MoneyTransactionList moneyTransactions={moneyTransactions} users={users} ownId={ownId}/>
         </>
   )
 }
