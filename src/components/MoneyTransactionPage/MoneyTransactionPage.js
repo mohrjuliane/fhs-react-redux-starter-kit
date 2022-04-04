@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MoneyTransactionCreate } from '../MoneyTransactionCreate/MoneyTransactionCreate'
 import { MoneyTransactionList } from '../MoneyTransactionList/MoneyTransactionList'
 import { db } from '../../firebase-config'
-import { collection, getDocs, addDoc } from 'firebase/firestore'
+import { collection, addDoc, updateDoc, doc, getDocs } from 'firebase/firestore'
 
 export const MoneyTransactionPage = () => {
   const [moneyTransactions, setMoneyTransactions] = useState([])
@@ -12,25 +12,22 @@ export const MoneyTransactionPage = () => {
   const transactionCollectionRef = collection(db, 'transactions')
 
   useEffect(() => {
-    getUsers()
-    getTransactions()
+    updateUsersState()
+    updateTransactionsState()
   }, [])
 
-  async function getUsers () {
+  async function updateUsersState () {
     const data = await getDocs(userCollectionRef)
     const parsedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    console.log(parsedData)
     setUsers(parsedData)
   }
 
-  async function getTransactions () {
+  async function updateTransactionsState () {
     const data = await getDocs(transactionCollectionRef)
-    const parsedData = data.docs.map((doc) => ({ ...doc.data() }))
-    console.log(parsedData)
+    const parsedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     setMoneyTransactions(parsedData)
   }
-
-  async function handleSubmit (creditor, debitor, amount) {
+  async function addMoneyTransaction (creditor, debitor, amount) {
     const newTransaction =
       {
         creditorId: creditor,
@@ -38,15 +35,26 @@ export const MoneyTransactionPage = () => {
         amount: amount,
         paidAt: null
       }
-    const docRef = await addDoc(collection(db, 'transactions'), newTransaction)
-    console.log('Document written with ID: ', docRef.id)
-    getTransactions()
+    await addDoc(collection(db, 'transactions'), newTransaction)
+    updateTransactionsState()
+  }
+
+  /* Code von Thomas Mayrhofer
+  const addMoneyTransaction = useCallback((moneyTransaction) => {
+    setMoneyTransaction([...moneyTransactions, moneyTransaction])
+  },[moneyTransactions,setMoneyTransactions]) */
+
+  async function updateDocument (transactionId, time) {
+    const documentRef = doc(db, 'transactions', transactionId)
+    await updateDoc(documentRef, {
+      paidAt: time
+    })
   }
 
   return (
         <>
-            <MoneyTransactionCreate users={users} handleSubmit={handleSubmit} ownId={ownId} />
-            <MoneyTransactionList moneyTransactions={moneyTransactions} users={users} ownId={ownId}/>
+            <MoneyTransactionCreate users={users} handleSubmit={addMoneyTransaction} ownId={ownId} />
+            <MoneyTransactionList moneyTransactions={moneyTransactions} users={users} ownId={ownId} updateDocument={updateDocument}/>
         </>
   )
 }
