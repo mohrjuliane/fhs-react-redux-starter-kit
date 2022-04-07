@@ -36,7 +36,7 @@ export const MoneyTransactionPage = () => {
         paidAt: null
       }
     await addDoc(collection(db, 'transactions'), newTransaction)
-    updateTransactionsState()
+    await updateTransactionsState()
   }
 
   async function updateDocument (transactionId, time) {
