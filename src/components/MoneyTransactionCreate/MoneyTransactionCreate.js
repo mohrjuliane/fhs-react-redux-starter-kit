@@ -5,15 +5,14 @@ import styles from './MoneyTransactionCreate.module.css'
 import { DecimalInput } from '../DecimalInput/DecimalInput'
 import { useFormik } from 'formik'
 
-export const MoneyTransactionCreate = ({ users, handleSubmit }) => {
+export const MoneyTransactionCreate = ({ users, handleSubmit, ownId }) => {
   const [isCreditor, setCreditor] = useState(false) // default: I owe somebody
 
   const formik = useFormik({
     initialValues: users[0],
     onSubmit: (values) => {
-      // pretending to be Sepp (id: 1)
-      const creditor = isCreditor ? 1 : parseInt(values.user)
-      const debitor = isCreditor ? parseInt(values.user) : 1
+      const creditor = isCreditor ? ownId : values.user
+      const debitor = isCreditor ? values.user : ownId
       handleSubmit(creditor, debitor, values.amount)
     }
   })
@@ -51,7 +50,7 @@ export const MoneyTransactionCreate = ({ users, handleSubmit }) => {
         <div className={styles.buttonWrapper}>
           <SelectInputField
             name={'user'}
-            options={users.filter(element => element.id !== 1)/* pretending to be Sepp (id: 1) */}
+            options={users.filter(element => element.id !== ownId)/* pretending to be Sepp (id: 1) */}
             onChange={formik.handleChange}
             value={formik.values.user}
           />
