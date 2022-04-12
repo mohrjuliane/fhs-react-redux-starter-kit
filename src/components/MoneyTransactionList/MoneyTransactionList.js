@@ -8,7 +8,7 @@ export const MoneyTransactionList = ({ moneyTransactions, users, ownId, updateDo
     if (user !== undefined) {
       return user.name
     } else {
-      return ''
+      return '<deleted user>'
     }
   }
   return (

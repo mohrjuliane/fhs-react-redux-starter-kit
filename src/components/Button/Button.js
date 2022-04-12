@@ -7,7 +7,7 @@ export const Button = ({ onClick, children, isPrimary, type }) => {
     <button
       type={type}
       onClick={onClick}
-      className={`${styles.button} ${isPrimary && styles.primary}`}
+      className={`${styles.button} ${isPrimary ? styles.primary : styles.secondary}`}
     >
       {children}
     </button>

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 import styles from './Navigation.module.css'
 import { auth } from '../../firebase-config'
+import { Button } from '../Button/Button'
 
 export const Navigation = ({ user }) => {
   async function signOut () {
@@ -20,9 +21,9 @@ export const Navigation = ({ user }) => {
         ? (
         <>
           <Link to="/money-transactions">Money-transactions</Link>
-          <button onClick={signOut} className={styles.button}>
+          <Button onClick={signOut}>
             Log Out
-          </button>
+          </Button>
         </>
           )
         : (
