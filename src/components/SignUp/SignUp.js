@@ -32,10 +32,10 @@ export const SignUp = ({ user, onUpdateUser }) => {
       const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
       const uid = userCredentials.user.uid
       await setDoc(doc(db, 'users', uid), { name: name })
+      navigate('/money-transactions')
     } catch (error) {
       setError(error.message)
     }
-    navigate('/money-transactions')
   }
 
   return (
