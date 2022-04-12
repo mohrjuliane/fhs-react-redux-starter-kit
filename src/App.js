@@ -18,14 +18,8 @@ function App () {
       <Navigation user={user} />
       <Routes>
         <Route path="/" element={<div>Home</div>} />
-        {user
-          ? <p>Hallo</p>
-          : (
-          <>
-            <Route path="/sign-in" element={<SignIn user={user} />} />
-            <Route path="/sign-up" element={<SignUp user={user} />} />
-          </>
-            )}
+        <Route path="/sign-in" element={<SignIn user={user} />} />
+        <Route path="/sign-up" element={<SignUp user={user} />} />
         <Route
           path="/money-transactions"
           element={<MoneyTransactionPage user={user} />}

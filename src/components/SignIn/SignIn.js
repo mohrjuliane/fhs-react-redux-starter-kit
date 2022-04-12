@@ -18,7 +18,7 @@ export const SignIn = ({ user }) => {
   const [loginError, setError] = useState()
 
   const formik = useFormik({
-    initialValues: user,
+    initialValues: {},
     validationSchema: userSchema,
     onSubmit: (values) => {
       handleSubmit(values.email, values.password)
@@ -28,7 +28,7 @@ export const SignIn = ({ user }) => {
   async function handleSubmit (email, password) {
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      console.log('login done')
+      console.log('login')
     } catch (error) {
       setError(error.message)
     }
