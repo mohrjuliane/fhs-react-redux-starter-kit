@@ -7,7 +7,7 @@ import { collection, addDoc, updateDoc, doc, getDocs } from 'firebase/firestore'
 export const MoneyTransactionPage = () => {
   const [moneyTransactions, setMoneyTransactions] = useState([])
   const [users, setUsers] = useState([{}])
-  const [ownId] = useState('7ksRNdhVDN8McZVloTEc')
+  const [ownId] = useState('LWan7EdwQGaYDzSHJgxWej9zCPV2')
   const userCollectionRef = collection(db, 'users')
   const transactionCollectionRef = collection(db, 'transactions')
 

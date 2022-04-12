@@ -4,7 +4,7 @@ import { InputField } from '../InputField/InputField'
 import styles from './SignIn.module.css'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase-config'
@@ -14,26 +14,27 @@ const userSchema = object({
   password: string().min(5).required('Required')
 })
 
-export const SignIn = ({ user, onUpdateUser }) => {
+export const SignIn = ({ user }) => {
   const [loginError, setError] = useState()
-  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: user,
     validationSchema: userSchema,
     onSubmit: (values) => {
-      handleSubmit(values.name, values.email, values.password)
+      handleSubmit(values.email, values.password)
     }
   })
 
   async function handleSubmit (email, password) {
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      navigate('/money-transactions')
+      console.log('login done')
     } catch (error) {
       setError(error.message)
     }
   }
+
+  if (user) return <Navigate to="/money-transactions"></Navigate>
 
   return (
     <div className={styles.formularWrapper}>

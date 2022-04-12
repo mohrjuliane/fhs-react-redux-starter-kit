@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import styles from './SignUp.module.css'
 import { InputField } from '../InputField/InputField'
 import { Button } from '../Button/Button'
-import { useFormik } from 'formik'
+import { useFormik, Formik } from 'formik'
 import { object, string } from 'yup'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../../firebase-config'
@@ -17,9 +17,8 @@ const userSchema = object({
   passwordConfirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
 })
 
-export const SignUp = ({ user, onUpdateUser }) => {
+export const SignUp = ({ user }) => {
   const [loginError, setError] = useState()
-  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: user,
@@ -32,15 +31,15 @@ export const SignUp = ({ user, onUpdateUser }) => {
       const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
       const uid = userCredentials.user.uid
       await setDoc(doc(db, 'users', uid), { name: name })
-      navigate('/money-transactions')
     } catch (error) {
       setError(error.message)
     }
   }
+  if (user) return <Navigate to="/money-transactions"></Navigate>
 
   return (
     <div className={styles.formularWrapper}>
-      <form className={styles.signinformular} onSubmit={formik.handleSubmit}>
+      <Formik className={styles.signinformular} onSubmit={formik.handleSubmit}>
         <InputField
             type="text"
             name="name"
@@ -80,7 +79,7 @@ export const SignUp = ({ user, onUpdateUser }) => {
         <Link to="/sign-in" className={styles.linkText}>
           Sign In
         </Link>
-      </form>
+        </Formik>
     </div>
   )
 }
