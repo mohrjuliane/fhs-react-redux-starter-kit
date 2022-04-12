@@ -15,14 +15,22 @@ export const Navigation = ({ user }) => {
   return (
     <nav className={styles.navigation}>
       <Link to="/">Home</Link>
-      <Link to="/sign-in">Sign In</Link>
-      <Link to="/sign-up">Sign Up</Link>
-      <Link to="/money-transactions">Money-transactions</Link>
-      {user && (
-        <button onClick={signOut} className={styles.button}>
-          Log Out
-        </button>
-      )}
+
+      {user
+        ? (
+        <>
+          <Link to="/money-transactions">Money-transactions</Link>
+          <button onClick={signOut} className={styles.button}>
+            Log Out
+          </button>
+        </>
+          )
+        : (
+        <>
+          <Link to="/sign-in">Sign In</Link>
+          <Link to="/sign-up">Sign Up</Link>
+        </>
+          )}
     </nav>
   )
 }

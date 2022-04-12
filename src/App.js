@@ -5,6 +5,7 @@ import { SignIn } from './components/SignIn/SignIn'
 import { SignUp } from './components/SignUp/SignUp'
 import { MoneyTransactionPage } from './components/MoneyTransactionPage/MoneyTransactionPage'
 import { auth } from './firebase-config'
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 
 function App () {
   const [user, setUser] = useState()
@@ -22,7 +23,11 @@ function App () {
         <Route path="/sign-up" element={<SignUp user={user} />} />
         <Route
           path="/money-transactions"
-          element={<MoneyTransactionPage user={user} />}
+          element={
+            <ProtectedRoute user={user}>
+              <MoneyTransactionPage user={user} />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </Router>
