@@ -1,10 +1,15 @@
 import React from 'react'
 import { Button } from '../Button/Button'
 import styles from './HomeScreen.module.css'
+import { Navigate } from 'react-router-dom'
+import { deleteUser } from 'firebase/auth'
 
 export const HomeScreen = ({ user }) => {
   function deleteAccount () {
-    console.log(user)
+    deleteUser(user).then(() => { return <Navigate to="/sign-in"></Navigate> })
+      .catch((error) => {
+        console.log(error)
+      })
   }
   return (
     <div className={styles.homeContainer}>
