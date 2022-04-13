@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef, useEffect } from 'react'
 import styles from './SignUp.module.css'
 import { InputField } from '../InputField/InputField'
 import { Button } from '../Button/Button'
@@ -21,6 +21,12 @@ const userSchema = object({
 export const SignUp = () => {
   const [loginError, setError] = useState()
   const user = useContext(UserContext)
+
+  const myInputRef = useRef(null)
+
+  useEffect(() => {
+    myInputRef.current?.focus()
+  }, [myInputRef.current])
 
   const formik = useFormik({
     initialValues: {},
@@ -51,6 +57,7 @@ export const SignUp = () => {
           title="Name"
           onChange={formik.handleChange}
           value={formik.values.name}
+          ref={myInputRef}
         />
         {<div className={styles.errorMessage}>{formik.errors.name}</div>}
         <InputField
