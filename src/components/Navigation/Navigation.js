@@ -9,7 +9,6 @@ export const Navigation = ({ user }) => {
     try {
       await auth.signOut()
     } catch (error) {
-      console.log(error.message)
     }
   }
 

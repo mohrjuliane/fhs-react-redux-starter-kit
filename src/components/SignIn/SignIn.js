@@ -28,7 +28,6 @@ export const SignIn = ({ user }) => {
   async function handleSubmit (email, password) {
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      console.log('login')
     } catch (error) {
       setError(error.message)
     }

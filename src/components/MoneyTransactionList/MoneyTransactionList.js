@@ -4,7 +4,6 @@ import { TableRow } from '../TableRow/TableRow'
 export const MoneyTransactionList = ({ moneyTransactions, users, ownId, updateDocument }) => {
   function findNameById (id) {
     const user = users.find((x) => x.id === id)
-    console.log(user)
     if (user !== undefined) {
       return user.name
     } else {
