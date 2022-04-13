@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useMemo } from 'react'
 import { MoneyTransactionCreate } from '../MoneyTransactionCreate/MoneyTransactionCreate'
 import { MoneyTransactionList } from '../MoneyTransactionList/MoneyTransactionList'
 import { db } from '../../firebase-config'
@@ -27,10 +27,11 @@ export const MoneyTransactionPage = () => {
   async function updateTransactionsState () {
     const data = await getDocs(transactionCollectionRef)
     const parsedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    const myData = parsedData.filter(
-      (doc) => doc.creditorId === ownId || doc.debitorId === ownId
-    )
-    setMoneyTransactions(myData)
+    // console.log(moneyTransactions)
+    // const myData = parsedData.filter(
+    //   (doc) => doc.creditorId === ownId || doc.debitorId === ownId
+    // )
+    setMoneyTransactions(parsedData)
   }
 
   async function addMoneyTransaction (creditor, debitor, amount) {
@@ -52,6 +53,10 @@ export const MoneyTransactionPage = () => {
     })
   }
 
+  const filteredTransaction = useMemo(() => moneyTransactions.filter(
+    (doc) => doc.creditorId === ownId || doc.debitorId === ownId
+  ), [moneyTransactions])
+
   return (
     <>
       <MoneyTransactionCreate
@@ -60,7 +65,7 @@ export const MoneyTransactionPage = () => {
         ownId={ownId}
       />
       <MoneyTransactionList
-        moneyTransactions={moneyTransactions}
+        moneyTransactions={filteredTransaction}
         users={users}
         ownId={ownId}
         updateDocument={updateDocument}
