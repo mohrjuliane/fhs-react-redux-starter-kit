@@ -25,7 +25,10 @@ export const MoneyTransactionPage = ({ user }) => {
   async function updateTransactionsState () {
     const data = await getDocs(transactionCollectionRef)
     const parsedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    setMoneyTransactions(parsedData)
+    const myData = parsedData.filter(
+      (doc) => doc.creditorId === ownId || doc.debitorId === ownId
+    )
+    setMoneyTransactions(myData)
   }
   async function addMoneyTransaction (creditor, debitor, amount) {
     const newTransaction =
