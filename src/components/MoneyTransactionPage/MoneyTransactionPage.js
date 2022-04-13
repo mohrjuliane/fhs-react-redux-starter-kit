@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { MoneyTransactionCreate } from '../MoneyTransactionCreate/MoneyTransactionCreate'
 import { MoneyTransactionList } from '../MoneyTransactionList/MoneyTransactionList'
 import { db } from '../../firebase-config'
 import { collection, addDoc, updateDoc, doc, getDocs } from 'firebase/firestore'
+import { UserContext } from '../../App'
 
-export const MoneyTransactionPage = ({ user }) => {
+export const MoneyTransactionPage = () => {
+  const user = useContext(UserContext)
   const [moneyTransactions, setMoneyTransactions] = useState([])
   const [users, setUsers] = useState([{}])
   const [ownId] = useState(user.uid)

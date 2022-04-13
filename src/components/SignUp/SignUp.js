@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styles from './SignUp.module.css'
 import { InputField } from '../InputField/InputField'
 import { Button } from '../Button/Button'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
 import { Link, Navigate } from 'react-router-dom'
+import { UserContext } from '../../App'
 
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../../firebase-config'
@@ -17,8 +18,9 @@ const userSchema = object({
   passwordConfirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
 })
 
-export const SignUp = ({ user }) => {
+export const SignUp = () => {
   const [loginError, setError] = useState()
+  const user = useContext(UserContext)
 
   const formik = useFormik({
     initialValues: {},

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button } from '../Button/Button'
 import { InputField } from '../InputField/InputField'
 import styles from './SignIn.module.css'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
 import { Link, Navigate } from 'react-router-dom'
+import { UserContext } from '../../App'
 
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase-config'
@@ -14,8 +15,9 @@ const userSchema = object({
   password: string().min(5).required('Required')
 })
 
-export const SignIn = ({ user }) => {
+export const SignIn = () => {
   const [loginError, setError] = useState()
+  const user = useContext(UserContext)
 
   const formik = useFormik({
     initialValues: {},
