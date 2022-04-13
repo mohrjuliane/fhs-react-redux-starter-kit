@@ -18,7 +18,7 @@ const userSchema = object({
   passwordConfirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
 })
 
-export const SignUp = () => {
+const SignUp = () => {
   const [loginError, setError] = useState()
   const user = useContext(UserContext)
 
@@ -99,3 +99,5 @@ export const SignUp = () => {
     </div>
   )
 }
+
+export default SignUp

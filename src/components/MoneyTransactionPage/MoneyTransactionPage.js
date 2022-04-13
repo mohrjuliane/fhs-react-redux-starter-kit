@@ -5,7 +5,7 @@ import { db } from '../../firebase-config'
 import { collection, addDoc, updateDoc, doc, getDocs } from 'firebase/firestore'
 import { UserContext } from '../../App'
 
-export const MoneyTransactionPage = () => {
+const MoneyTransactionPage = () => {
   const user = useContext(UserContext)
   const [moneyTransactions, setMoneyTransactions] = useState([])
   const [users, setUsers] = useState([{}])
@@ -69,3 +69,5 @@ export const MoneyTransactionPage = () => {
     </>
   )
 }
+
+export default MoneyTransactionPage

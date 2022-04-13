@@ -15,7 +15,7 @@ const userSchema = object({
   password: string().min(5).required('Required')
 })
 
-export const SignIn = () => {
+const SignIn = () => {
   const [loginError, setError] = useState()
   const user = useContext(UserContext)
 
@@ -74,3 +74,5 @@ export const SignIn = () => {
     </div>
   )
 }
+
+export default SignIn
