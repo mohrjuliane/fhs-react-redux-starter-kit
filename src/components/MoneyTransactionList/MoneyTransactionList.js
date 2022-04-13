@@ -1,7 +1,10 @@
 import React from 'react'
 import { TableRow } from '../TableRow/TableRow'
 
-export const MoneyTransactionList = ({ moneyTransactions, users, ownId, updateDocument }) => {
+const DEFAULT_USERS = []
+const DEFAULT_TRANSACTIONS = []
+
+export const MoneyTransactionList = ({ moneyTransactions = DEFAULT_TRANSACTIONS, users = DEFAULT_USERS, ownId, updateDocument }) => {
   function findNameById (id) {
     const user = users.find((x) => x.id === id)
     if (user !== undefined) {
@@ -12,10 +15,10 @@ export const MoneyTransactionList = ({ moneyTransactions, users, ownId, updateDo
   }
   return (
     <>
-      {users !== undefined && moneyTransactions.map((element) => {
+      {users !== undefined && moneyTransactions.map((element, key) => {
         return (
           <TableRow
-              key={element.uid}
+              key={key}
               element={element}
               updateDocument={updateDocument}
               userName={element.creditorId !== ownId

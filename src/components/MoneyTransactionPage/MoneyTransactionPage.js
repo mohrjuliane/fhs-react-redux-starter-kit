@@ -30,6 +30,7 @@ export const MoneyTransactionPage = ({ user }) => {
     )
     setMoneyTransactions(myData)
   }
+
   async function addMoneyTransaction (creditor, debitor, amount) {
     const newTransaction =
       {
