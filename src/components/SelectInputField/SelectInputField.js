@@ -18,9 +18,9 @@ export const SelectInputField = ({ name, options, onChange, value }) => {
           Select
         </option>
         {options !== undefined &&
-          options.map((option) => {
+          options.map((option, key) => {
             return (
-              <option key={option.id} value={option.id}>
+              <option value={option.id} key={key}>
                 {option.name}
               </option>
             )

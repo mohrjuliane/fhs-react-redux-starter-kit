@@ -1,31 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navigation } from './components/Navigation/Navigation'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { SignIn } from './components/SignIn/SignIn'
 import { SignUp } from './components/SignUp/SignUp'
 import { MoneyTransactionPage } from './components/MoneyTransactionPage/MoneyTransactionPage'
+import { auth } from './firebase-config'
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
+import { HomeScreen } from './components/HomeScreen/HomeScreen'
 
 function App () {
-  const [user, setUser] = useState({ email: '', password: '' })
+  const [user, setUser] = useState()
 
-  function handleUserChange ({ email, password }) {
-    setUser({ email: email, password: password })
-  }
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => setUser(user))
+  }, [])
 
   return (
     <Router>
-      <Navigation userEmail={user.email} />
+      <Navigation user={user} />
       <Routes>
-        <Route path="/" element={<div>Home</div>} />
+        <Route path="/" element={<HomeScreen user={user}/>} />
+        <Route path="/sign-in" element={<SignIn user={user} />} />
+        <Route path="/sign-up" element={<SignUp user={user} />} />
         <Route
-          path="/sign-in"
-          element={<SignIn user={user} onUpdateUser={handleUserChange} />}
+          path="/money-transactions"
+          element={
+            <ProtectedRoute user={user}>
+              <MoneyTransactionPage user={user} />
+            </ProtectedRoute>
+          }
         />
-        <Route
-          path="/sign-up"
-          element={<SignUp user={user} onUpdateUser={handleUserChange} />}
-        />
-        <Route path="/money-transactions" element={<MoneyTransactionPage />} />
       </Routes>
     </Router>
   )
