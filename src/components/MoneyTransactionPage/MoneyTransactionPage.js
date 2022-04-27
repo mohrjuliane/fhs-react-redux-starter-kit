@@ -4,10 +4,10 @@ import { MoneyTransactionList } from '../MoneyTransactionList/MoneyTransactionLi
 import { db } from '../../firebase-config'
 import { collection, addDoc, updateDoc, doc, getDocs } from 'firebase/firestore'
 
-export const MoneyTransactionPage = () => {
+export const MoneyTransactionPage = ({ user }) => {
   const [moneyTransactions, setMoneyTransactions] = useState([])
   const [users, setUsers] = useState([{}])
-  const [ownId] = useState('LWan7EdwQGaYDzSHJgxWej9zCPV2')
+  const [ownId] = useState(user.uid)
   const userCollectionRef = collection(db, 'users')
   const transactionCollectionRef = collection(db, 'transactions')
 
@@ -25,7 +25,10 @@ export const MoneyTransactionPage = () => {
   async function updateTransactionsState () {
     const data = await getDocs(transactionCollectionRef)
     const parsedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    setMoneyTransactions(parsedData)
+    const myData = parsedData.filter(
+      (doc) => doc.creditorId === ownId || doc.debitorId === ownId
+    )
+    setMoneyTransactions(myData)
   }
   async function addMoneyTransaction (creditor, debitor, amount) {
     const newTransaction =
@@ -47,9 +50,18 @@ export const MoneyTransactionPage = () => {
   }
 
   return (
-        <>
-            <MoneyTransactionCreate users={users} handleSubmit={addMoneyTransaction} ownId={ownId} />
-            <MoneyTransactionList moneyTransactions={moneyTransactions} users={users} ownId={ownId} updateDocument={updateDocument}/>
-        </>
+    <>
+      <MoneyTransactionCreate
+        users={users}
+        handleSubmit={addMoneyTransaction}
+        ownId={ownId}
+      />
+      <MoneyTransactionList
+        moneyTransactions={moneyTransactions}
+        users={users}
+        ownId={ownId}
+        updateDocument={updateDocument}
+      />
+    </>
   )
 }

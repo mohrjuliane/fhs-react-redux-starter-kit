@@ -4,6 +4,7 @@
     height: 120px;
     gap: 20px;
     margin-bottom: 50px;
+    justify-content: center;
 }
 
 .buttonWrapper {

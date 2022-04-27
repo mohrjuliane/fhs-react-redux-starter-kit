@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './SignUp.module.css'
 import { InputField } from '../InputField/InputField'
 import { Button } from '../Button/Button'
-import { useFormik, Formik } from 'formik'
+import { useFormik } from 'formik'
 import { object, string } from 'yup'
 import { Link, Navigate } from 'react-router-dom'
 
@@ -21,7 +21,7 @@ export const SignUp = ({ user }) => {
   const [loginError, setError] = useState()
 
   const formik = useFormik({
-    initialValues: user,
+    initialValues: {},
     validationSchema: userSchema,
     onSubmit: (values) => { handleSubmit(values.name, values.email, values.password) }
   })
@@ -39,13 +39,16 @@ export const SignUp = ({ user }) => {
 
   return (
     <div className={styles.formularWrapper}>
-      <Formik className={styles.signinformular} onSubmit={formik.handleSubmit}>
+      <form
+        className={styles.signinformular}
+        onSubmit={formik.handleSubmit}
+      >
         <InputField
-            type="text"
-            name="name"
-            title="Name"
-            onChange={formik.handleChange}
-            value={formik.values.name}
+          type="text"
+          name="name"
+          title="Name"
+          onChange={formik.handleChange}
+          value={formik.values.name}
         />
         {<div className={styles.errorMessage}>{formik.errors.name}</div>}
         <InputField
@@ -65,13 +68,17 @@ export const SignUp = ({ user }) => {
         />
         {<div className={styles.errorMessage}>{formik.errors.password}</div>}
         <InputField
-            type="password"
-            name="passwordConfirmation"
-            title="Re-enter password"
-            onChange={formik.handleChange}
-            value={formik.values.passwordConfirmation}
+          type="password"
+          name="passwordConfirmation"
+          title="Re-enter password"
+          onChange={formik.handleChange}
+          value={formik.values.passwordConfirmation}
         />
-        {<div className={styles.errorMessage}>{formik.errors.passwordConfirmation}</div>}
+        {
+          <div className={styles.errorMessage}>
+            {formik.errors.passwordConfirmation}
+          </div>
+        }
         {<div className={styles.errorMessage}>{loginError}</div>}
         <Button type="submit" isPrimary={true}>
           Sign Up
@@ -79,7 +86,7 @@ export const SignUp = ({ user }) => {
         <Link to="/sign-in" className={styles.linkText}>
           Sign In
         </Link>
-        </Formik>
+      </form>
     </div>
   )
 }
