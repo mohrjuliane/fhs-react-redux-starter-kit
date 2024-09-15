@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext, useMemo } from 'react'
 import { MoneyTransactionCreate } from '../MoneyTransactionCreate/MoneyTransactionCreate'
 import { MoneyTransactionList } from '../MoneyTransactionList/MoneyTransactionList'
 import { db } from '../../firebase-config'
 import { collection, addDoc, updateDoc, doc, getDocs } from 'firebase/firestore'
+import { UserContext } from '../../App'
 
-export const MoneyTransactionPage = ({ user }) => {
+const MoneyTransactionPage = () => {
+  const user = useContext(UserContext)
   const [moneyTransactions, setMoneyTransactions] = useState([])
   const [users, setUsers] = useState([{}])
   const [ownId] = useState(user.uid)
@@ -25,11 +27,9 @@ export const MoneyTransactionPage = ({ user }) => {
   async function updateTransactionsState () {
     const data = await getDocs(transactionCollectionRef)
     const parsedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    const myData = parsedData.filter(
-      (doc) => doc.creditorId === ownId || doc.debitorId === ownId
-    )
-    setMoneyTransactions(myData)
+    setMoneyTransactions(parsedData)
   }
+
   async function addMoneyTransaction (creditor, debitor, amount) {
     const newTransaction =
       {
@@ -49,6 +49,10 @@ export const MoneyTransactionPage = ({ user }) => {
     })
   }
 
+  const filteredTransaction = useMemo(() => moneyTransactions.filter(
+    (doc) => doc.creditorId === ownId || doc.debitorId === ownId
+  ), [moneyTransactions])
+
   return (
     <>
       <MoneyTransactionCreate
@@ -57,7 +61,7 @@ export const MoneyTransactionPage = ({ user }) => {
         ownId={ownId}
       />
       <MoneyTransactionList
-        moneyTransactions={moneyTransactions}
+        moneyTransactions={filteredTransaction}
         users={users}
         ownId={ownId}
         updateDocument={updateDocument}
@@ -65,3 +69,5 @@ export const MoneyTransactionPage = ({ user }) => {
     </>
   )
 }
+
+export default MoneyTransactionPage

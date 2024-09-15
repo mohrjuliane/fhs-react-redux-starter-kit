@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './Navigation.module.css'
 import { auth } from '../../firebase-config'
 import { Button } from '../Button/Button'
+import { UserContext } from '../../App'
 
-export const Navigation = ({ user }) => {
+export const Navigation = () => {
+  const user = useContext(UserContext)
+
   async function signOut () {
     try {
       await auth.signOut()

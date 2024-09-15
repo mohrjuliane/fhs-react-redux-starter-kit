@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import styles from './TableRow.module.css'
 import { Button } from '../Button/Button'
 import { doc, getDoc } from 'firebase/firestore'
@@ -6,12 +6,13 @@ import { db } from '../../firebase-config'
 
 export const TableRow = ({ userName, element, updateDocument }) => {
   const [paidState, setPaid] = useState(element.paidAt !== null)
-  const formatAmount = (num) => {
-    return num ? `${num.toFixed(2)}$` : ''
-  }
+
+  const formatAmount = useCallback(() =>
+    element.amount ? `${element.amount.toFixed(2)}$` : ''
+  , [element])
 
   async function getIsPaid () {
-    const docRef = doc(db, 'transactions', element.id)
+    const docRef = doc(db, 'transactions', element.uid)
     const docSnap = await getDoc(docRef)
     return docSnap.data().paidAt
   }

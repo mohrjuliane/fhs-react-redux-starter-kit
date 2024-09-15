@@ -1,9 +1,18 @@
 import React from 'react'
 import styles from './InputField.module.css'
 
-export const InputField = ({ type, name, title, onChange }) => (
-    <label>
-            <p className={styles.lableText}>{title}</p>
-            <input className={styles.inputfield} type={type} name={name} onChange={onChange} />
-    </label>
-)
+export const InputField = React.forwardRef((props, ref) => {
+  InputField.displayName = 'InputField'
+  return (
+  <label>
+    <p className={styles.lableText}>{props.title}</p>
+    <input
+      className={styles.inputfield}
+      type={props.type}
+      name={props.name}
+      onChange={props.onChange}
+      ref={ref}
+    />
+  </label>
+  )
+})
